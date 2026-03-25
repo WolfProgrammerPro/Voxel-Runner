@@ -80,7 +80,9 @@ public class LevelManager : MonoBehaviour, ILevelManager
         if (currentLevel < SceneManager.sceneCountInBuildSettings && currentLevel >= MINIMAL_LEVEL)
         {
             currentLevel++;
+            maximalLevel = Math.Max(maximalLevel, currentLevel);
             PlayCurrentLevel();
+
 
         }
         else
@@ -96,15 +98,7 @@ public class LevelManager : MonoBehaviour, ILevelManager
         {
             currentLevel = MENU_LEVEL;
         }
-        if (currentLevel >= MINIMAL_LEVEL)
-        {
-            maximalLevel = Mathf.Clamp(maximalLevel, maximalLevel, currentLevel);
-            maximalLevel = Mathf.Max(maximalLevel, MENU_LEVEL + 1, maximalLevel);
-        }
-        else
-        {
-            throw new IndexOutOfRangeException(nameof(currentLevel));
-        }
+        maximalLevel = Math.Max(maximalLevel, currentLevel);
         SceneManager.LoadScene(currentLevel);
     }
 
